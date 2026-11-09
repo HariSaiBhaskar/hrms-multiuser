@@ -72,6 +72,5 @@ databases:
     user: hrms_user
     region: oregon
     plan: free
-    postgres: false
-    mysql: true
-    mysqlVersion: "8.0"
+    engine: mysql
+    version: "8.0"
