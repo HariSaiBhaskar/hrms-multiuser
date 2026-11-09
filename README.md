@@ -270,3 +270,5 @@ python manage.py seed_demo --flush      # reset demo data
 cd frontend
 npm start
 ```
+#   f o r c e   r e b u i l d  
+ 
