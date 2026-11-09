@@ -35,7 +35,6 @@ services:
   - type: web
     name: hrms-frontend
     env: static
-    region: oregon
     plan: free
     buildCommand: |
       cd frontend
