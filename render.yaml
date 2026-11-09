@@ -1,0 +1,77 @@
+services:
+  # Backend API
+  - type: web
+    name: hrms-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: |
+      pip install -r requirements.txt
+      pip install mysqlclient gunicorn whitenoise
+    startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DB_ENGINE
+        value: mysql
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: hrms-backend.onrender.com
+      - key: DB_HOST
+        fromDatabase:
+          name: hrms-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: hrms-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: hrms-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: hrms-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: hrms-db
+          property: password
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://hrms-frontend.onrender.com
+      - key: VITE_API_TARGET
+        value: https://hrms-backend.onrender.com
+
+  # Frontend Static Site
+  - type: web
+    name: hrms-frontend
+    env: static
+    region: oregon
+    plan: free
+    buildCommand: |
+      cd frontend
+      npm install
+      npm run build
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: VITE_API_TARGET
+        value: https://hrms-backend.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+databases:
+  - name: hrms-db
+    databaseName: hrms_db
+    user: hrms_user
+    region: oregon
+    plan: free
+    postgres: false
+    mysql: true
+    mysqlVersion: "8.0"

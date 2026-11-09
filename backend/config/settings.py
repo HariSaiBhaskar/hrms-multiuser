@@ -197,6 +197,19 @@ CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
 
 
 # ---------------------------------------------------------------------------
+# Security hardening for production
+# ---------------------------------------------------------------------------
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_SSL_REDIRECT = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+SECURE_HSTS_SECONDS = 31536000 if not DEBUG else 0
+SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
+SECURE_HSTS_PRELOAD = not DEBUG
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+
+# ---------------------------------------------------------------------------
 # i18n / static
 # ---------------------------------------------------------------------------
 LANGUAGE_CODE = "en-us"
