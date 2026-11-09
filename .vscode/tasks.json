@@ -1,0 +1,70 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Backend: create venv",
+      "type": "shell",
+      "command": "python -m venv venv",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Backend: install requirements",
+      "type": "shell",
+      "command": "${workspaceFolder}/backend/venv/Scripts/python.exe -m pip install -r requirements.txt",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Backend: migrate",
+      "type": "shell",
+      "command": "${workspaceFolder}/backend/venv/Scripts/python.exe manage.py migrate",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Backend: seed demo data",
+      "type": "shell",
+      "command": "${workspaceFolder}/backend/venv/Scripts/python.exe manage.py seed_demo",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Backend: run tests",
+      "type": "shell",
+      "command": "${workspaceFolder}/backend/venv/Scripts/python.exe manage.py test",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "group": { "kind": "test", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "Backend: runserver",
+      "type": "shell",
+      "command": "venv/Scripts/python.exe manage.py runserver 127.0.0.1:8000",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Frontend: npm install",
+      "type": "shell",
+      "command": "npm install",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Frontend: dev server",
+      "type": "shell",
+      "command": "npm start",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Run everything (backend + frontend)",
+      "dependsOrder": "parallel",
+      "dependsOn": ["Backend: runserver", "Frontend: dev server"],
+      "problemMatcher": []
+    }
+  ]
+}

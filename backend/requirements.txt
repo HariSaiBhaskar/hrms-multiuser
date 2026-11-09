@@ -1,0 +1,16 @@
+# --- core stack ---
+Django>=5.2,<6.0
+djangorestframework>=3.15
+djangorestframework-simplejwt>=5.3
+django-cors-headers>=4.4
+python-dotenv>=1.0
+
+# --- database drivers ---
+# MySQL: install ONE of these (see SETUP-WINDOWS.md step 3)
+#   pip install mysqlclient     <- preferred, uses the C extension
+#   pip install PyMySQL         <- fallback, pure Python, no compiler needed
+dj-database-url>=2.2
+
+# --- serving ---
+whitenoise>=6.7
+gunicorn>=22.0 ; sys_platform != "win32"
