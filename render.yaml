@@ -38,7 +38,12 @@ services:
     staticPublishPath: frontend/dist
     envVars:
       - key: VITE_API_BASE
-        value: https://hrms-backend.onrender.com/api
+        fromService:
+          name: hrms-backend
+          type: web
+          property: host
+          prefix: "https://"
+          suffix: "/api"
     routes:
       - type: rewrite
         source: /*
