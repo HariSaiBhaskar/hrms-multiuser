@@ -35,7 +35,6 @@ services:
   - type: web
     name: hrms-frontend
     env: static
-    plan: free
     buildCommand: |
       cd frontend
       npm install
