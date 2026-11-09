@@ -7,7 +7,7 @@ services:
     plan: free
     buildCommand: |
       pip install -r requirements.txt
-      pip install mysqlclient gunicorn whitenoise
+      pip install psycopg2-binary gunicorn whitenoise
     startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: DJANGO_SETTINGS_MODULE
@@ -15,33 +15,17 @@ services:
       - key: PYTHON_VERSION
         value: 3.11.0
       - key: DB_ENGINE
-        value: mysql
+        value: url
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
         value: "False"
       - key: ALLOWED_HOSTS
         value: hrms-backend.onrender.com
-      - key: DB_HOST
+      - key: DATABASE_URL
         fromDatabase:
           name: hrms-db
-          property: host
-      - key: DB_PORT
-        fromDatabase:
-          name: hrms-db
-          property: port
-      - key: DB_NAME
-        fromDatabase:
-          name: hrms-db
-          property: database
-      - key: DB_USER
-        fromDatabase:
-          name: hrms-db
-          property: user
-      - key: DB_PASSWORD
-        fromDatabase:
-          name: hrms-db
-          property: password
+          property: connectionString
       - key: CORS_ALLOWED_ORIGINS
         value: https://hrms-frontend.onrender.com
       - key: VITE_API_TARGET
@@ -72,5 +56,3 @@ databases:
     user: hrms_user
     region: oregon
     plan: free
-    engine: mysql
-    version: "8.0"
