@@ -164,7 +164,7 @@ class Command(BaseCommand):
 
         # ---- attendance for the past N days --------------------------------
         generated = 0
-        for offset in range(options["days"], -1, -1):
+        for offset in range(options["days"], 0, -1):
             day = today - timedelta(days=offset)
             if day.weekday() >= 5:      # skip weekends
                 continue
