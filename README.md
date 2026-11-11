@@ -271,4 +271,5 @@ cd frontend
 npm start
 ```
 #   f o r c e   r e b u i l d  
+ #   f o r c e   r e b u i l d   1 1 / 1 1 / 2 0 2 6   0 6 : 4 2 : 1 9  
  
