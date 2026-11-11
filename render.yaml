@@ -7,6 +7,7 @@ services:
     plan: free
     buildCommand: pip install -r backend/requirements.txt && pip install psycopg2-binary gunicorn whitenoise
     startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --chdir /opt/render/project/src/backend
+    preDeployCommand: python backend/manage.py migrate && python backend/manage.py seed_demo --flush
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: config.settings
@@ -26,8 +27,6 @@ services:
           property: connectionString
       - key: CORS_ALLOWED_ORIGINS
         value: "https://hrms-frontend.onrender.com,https://hrms-frontend-p2nr.onrender.com"
-    # Run migrations and seed demo data on first deploy
-    preDeployCommand: python backend/manage.py migrate && python backend/manage.py seed_demo --flush
 
   # Frontend Static Site
   - type: web
